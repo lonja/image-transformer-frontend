@@ -86,7 +86,10 @@
             console.info('rotate', rotate)
             rotate(this.formData).then(files => {
               console.info(`response`, files)
-              this.urls = files.map(image => image.image)
+              this.urls = files.map(image => {
+                image.image.url = image.image.url + '?' + new Date().getTime()
+                return image.image
+              })
               this.loading = false
             }).catch(error => {
               console.error(`error`, error)

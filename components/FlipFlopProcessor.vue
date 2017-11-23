@@ -63,8 +63,8 @@
           if (!valid) {
             return
           }
-          this.formData.option === 'Flip' ? this.sendFlipRequest() : this.sendFlopRequest()
           this.loading = true
+          this.formData.option === 'Flip' ? this.sendFlipRequest() : this.sendFlopRequest()
         })
       },
       onFileSelect: function (files) {
@@ -75,13 +75,19 @@
       },
       sendFlipRequest () {
         flip(this.formData).then(files => {
-          this.urls = files.map(image => image.image)
+          this.urls = files.map(image => {
+            image.image.url = image.image.url + '?' + new Date().getTime()
+            return image.image
+          })
           this.loading = false
         })
       },
       sendFlopRequest () {
         flop(this.formData.files).then(files => {
-          this.urls = files.map(image => image.image)
+          this.urls = files.map(image => {
+            image.image.url = image.image.url + '?' + new Date().getTime()
+            return image.image
+          })
           this.loading = false
         })
       }

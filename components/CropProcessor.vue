@@ -145,7 +145,10 @@
             this.loading = true
             crop(this.formData.files).then(files => {
               console.info(`response`, files)
-              this.urls = files.map(image => image.image)
+              this.urls = files.map(image => {
+                image.image.url = image.image.url + '?' + new Date().getTime()
+                return image.image
+              })
               this.loading = false
             })
           } else {
