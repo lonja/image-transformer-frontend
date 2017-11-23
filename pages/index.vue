@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>Image Processor</el-header>
+    <el-header class="title">Image Processor</el-header>
     <el-main>
       <el-tabs v-model="activeName">
         <el-tab-pane label="Rotate" name="rotate">
@@ -54,7 +54,7 @@
     font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
     display: block;
     font-weight: 300;
-    font-size: 100px;
+    font-size: 60px !important;
     color: #35495e;
     letter-spacing: 1px;
   }

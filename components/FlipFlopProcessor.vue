@@ -83,7 +83,7 @@
         })
       },
       sendFlopRequest () {
-        flop(this.formData.files).then(files => {
+        flop(this.formData).then(files => {
           this.urls = files.map(image => {
             image.image.url = image.image.url + '?' + new Date().getTime()
             return image.image
