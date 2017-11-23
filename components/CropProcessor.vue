@@ -143,7 +143,12 @@
         this.$refs.rotateForm.validate((valid) => {
           if (valid) {
             this.loading = true
-            crop(this.formData.files).then(files => {
+            const data = {
+              files: this.formData.files,
+              width: this.formData.width + this.formData.widthUnit,
+              height: this.formData.height + this.formData.heightUnit
+            }
+            crop(data).then(files => {
               console.info(`response`, files)
               this.urls = files.map(image => {
                 image.image.url = image.image.url + '?' + new Date().getTime()
@@ -162,6 +167,15 @@
         this.formData.files = files.map(file => file.raw)
         this.images = null
         this.urls = []
+      },
+      onSizeChange: function (value) {
+        if (value === 'custom') {
+          return
+        }
+        this.formData.width = value
+        this.formData.height = value
+        this.formData.widthUnit = '%'
+        this.formData.heightUnit = '%'
       }
     },
     components: {
