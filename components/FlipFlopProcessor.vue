@@ -70,12 +70,17 @@
       onFileSelect: function (files) {
         console.info('files', files)
         this.formData.files = files.map(file => file.raw)
-        this.images = null
-        this.urls = []
       },
       sendFlipRequest () {
         flip(this.formData).then(files => {
           this.urls = files.map(image => {
+            if (image.error && image.error !== '') {
+              this.$notify.error({
+                title: 'Error occurred',
+                message: image.error
+              })
+              return
+            }
             image.image.url = image.image.url + '?' + new Date().getTime()
             return image.image
           })

@@ -87,6 +87,13 @@
             rotate(this.formData).then(files => {
               console.info(`response`, files)
               this.urls = files.map(image => {
+                if (image.error && image.error !== '') {
+                  this.$notify.error({
+                    title: 'Error occurred',
+                    message: image.error
+                  })
+                  return
+                }
                 image.image.url = image.image.url + '?' + new Date().getTime()
                 return image.image
               })
@@ -104,8 +111,6 @@
       onFileSelect: function (files) {
         console.info('files', files)
         this.formData.files = files.map(file => file.raw)
-        this.images = null
-        this.urls = []
       }
     },
     components: {

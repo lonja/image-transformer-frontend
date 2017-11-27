@@ -144,6 +144,7 @@
       onSubmit: function () {
         console.info('refs', this.$refs.rotateForm)
         console.info('form data', this.formData)
+        this.urls = []
         this.$refs.rotateForm.validate((valid) => {
           if (valid) {
             this.loading = true
@@ -156,6 +157,13 @@
             resize(data).then(files => {
               console.info(`response`, files)
               this.urls = files.map(image => {
+                if (image.error && image.error !== '') {
+                  this.$notify.error({
+                    title: 'Error occurred',
+                    message: image.error
+                  })
+                  return
+                }
                 image.image.url = image.image.url + '?' + new Date().getTime()
                 return image.image
               })
@@ -169,7 +177,6 @@
       },
       onFileSelect: function (files) {
         this.formData.files = files.map(file => file.raw)
-        this.urls = []
       },
       onSizeChange: function (value) {
         if (value === 'custom') {
